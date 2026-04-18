@@ -56,7 +56,9 @@ export async function POST(req: NextRequest) {
     req.headers.get("x-real-ip") ||
     "Unknown";
 
-  const result = await sendToDiscord({ roobetName, gamesPlayed, vipLossback, last30DaysProof, totalWagerProof, ip });
+  const kycHelp = ["Yes", "No"].includes(String(formData.get("kycHelp") || "")) ? String(formData.get("kycHelp")) : "Not specified";
+
+  const result = await sendToDiscord({ roobetName, gamesPlayed, vipLossback, kycHelp, last30DaysProof, totalWagerProof, ip });
   if (!result.ok) {
     return NextResponse.json({ error: "Failed to deliver application. Please try again." }, { status: 502 });
   }

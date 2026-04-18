@@ -18,6 +18,7 @@ export default function Home() {
   const [vipLossback, setVipLossback] = useState("");
   const [last30DaysProof, setLast30DaysProof] = useState<File[]>([]);
   const [totalWagerProof, setTotalWagerProof] = useState<File[]>([]);
+  const [kycHelp, setKycHelp] = useState<boolean | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -33,6 +34,7 @@ export default function Home() {
       formData.append("roobetName", sanitizeText(roobetName));
       formData.append("gamesPlayed", sanitizeText(gamesPlayed));
       formData.append("vipLossback", vipLossback);
+      formData.append("kycHelp", kycHelp === true ? "Yes" : kycHelp === false ? "No" : "Not specified");
       last30DaysProof.forEach((f) => formData.append("last30DaysProof", f));
       totalWagerProof.forEach((f) => formData.append("totalWagerProof", f));
 
@@ -85,9 +87,26 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen px-4 py-8 md:py-12 flex flex-col items-center" style={{ background: "#0b0d1a" }}>
+    <div className="min-h-screen flex flex-col items-center" style={{ background: "#0b0d1a" }}>
       <RoobetGradient />
       <div className="fixed inset-0 pointer-events-none" style={{ background: "rgba(8,5,28,0.55)", zIndex: 0 }} />
+
+      {/* Top banner */}
+      <div className="w-full flex items-center justify-center gap-3 px-4 py-2.5 text-sm font-medium" style={{ background: "rgba(18,15,40,0.9)", borderBottom: "1px solid rgba(240,180,41,0.15)", zIndex: 10, position: "relative" }}>
+        <span style={{ color: "#f0b429" }}>★</span>
+        <span className="text-white/80">Sign up with code <span className="font-bold" style={{ color: "#f0b429" }}>DOUG</span> for exclusive lossback</span>
+        <a
+          href="https://roobet.com/?ref=doug"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary py-1.5 px-4 text-xs font-bold rounded-lg"
+          style={{ padding: "6px 16px", fontSize: "12px", borderRadius: "8px" }}
+        >
+          SIGN UP →
+        </a>
+      </div>
+
+      <div className="w-full px-4 py-8 md:py-12 flex flex-col items-center">
 
       {/* Header */}
       <motion.div
@@ -218,6 +237,30 @@ export default function Home() {
               </div>
             </div>
 
+            {/* KYC Help */}
+            <div className="border-t border-white/5 pt-5 space-y-2">
+              <label className="block text-sm font-semibold text-white/80">
+                Do you need help with KYC?
+              </label>
+              <div className="flex gap-3">
+                {([true, false] as const).map((val) => (
+                  <button
+                    key={String(val)}
+                    type="button"
+                    onClick={() => setKycHelp(val)}
+                    className="flex-1 rounded-xl border py-3 text-sm font-bold transition-all"
+                    style={{
+                      borderColor: kycHelp === val ? "#f0b429" : "rgba(255,255,255,0.1)",
+                      background: kycHelp === val ? "rgba(240,180,41,0.12)" : "rgba(255,255,255,0.03)",
+                      color: kycHelp === val ? "#f0b429" : "rgba(255,255,255,0.45)",
+                    }}
+                  >
+                    {val ? "Yes" : "No"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Submit */}
             <div className="border-t border-white/5 pt-5">
               <button
@@ -244,6 +287,7 @@ export default function Home() {
           </form>
         </ShineBorder>
       </motion.div>
+    </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ export interface DiscordSubmission {
   roobetName: string;
   gamesPlayed: string;
   vipLossback: string;
+  kycHelp: string;
   last30DaysProof: File[];
   totalWagerProof: File[];
   ip: string;
@@ -24,6 +25,7 @@ export async function sendToDiscord(data: DiscordSubmission): Promise<{ ok: bool
       { name: "👤 Roobet Name", value: `\`${data.roobetName}\``, inline: true },
       { name: "💸 VIP Lossback", value: `\`${data.vipLossback}\``, inline: true },
       { name: "🎮 Primary Games", value: data.gamesPlayed || "N/A", inline: false },
+      { name: "🪪 KYC Help Needed", value: data.kycHelp, inline: true },
       {
         name: "📊 Last 30 Days Proof",
         value: `${data.last30DaysProof.length} image(s) attached`,

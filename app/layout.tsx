@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "RankTransfer — Transfer Your Roobet VIP Rank for Better Cashback",
+    default: "RankTransfer.com | Get 100% of all your wager across all casinos on one account for the #1 rewards",
     template: "%s | RankTransfer",
   },
   description:
