@@ -92,21 +92,21 @@ export default function Home() {
       <div className="fixed inset-0 pointer-events-none" style={{ background: "rgba(8,5,28,0.55)", zIndex: 0 }} />
 
       {/* Top banner */}
-      <div className="w-full flex items-center justify-center gap-3 px-4 py-2.5 text-sm font-medium" style={{ background: "rgba(18,15,40,0.9)", borderBottom: "1px solid rgba(240,180,41,0.15)", zIndex: 10, position: "relative" }}>
+      <div className="w-full flex flex-wrap items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium" style={{ background: "rgba(18,15,40,0.9)", borderBottom: "1px solid rgba(240,180,41,0.15)", zIndex: 10, position: "relative" }}>
         <span style={{ color: "#f0b429" }}>★</span>
-        <span className="text-white/80">Sign up with code <span className="font-bold" style={{ color: "#f0b429" }}>DOUG</span> for exclusive lossback</span>
+        <span className="text-white/80 text-xs sm:text-sm text-center">Sign up with code <span className="font-bold" style={{ color: "#f0b429" }}>DOUG</span> for exclusive lossback</span>
         <a
           href="https://roobet.com/?ref=doug"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary py-1.5 px-4 text-xs font-bold rounded-lg"
-          style={{ padding: "6px 16px", fontSize: "12px", borderRadius: "8px" }}
+          className="btn-primary shrink-0"
+          style={{ padding: "5px 14px", fontSize: "11px", borderRadius: "8px" }}
         >
           SIGN UP →
         </a>
       </div>
 
-      <div className="w-full px-4 py-8 md:py-12 flex flex-col items-center">
+      <div className="w-full px-3 sm:px-4 py-6 sm:py-8 md:py-12 flex flex-col items-center">
 
       {/* Header */}
       <motion.div
@@ -160,7 +160,7 @@ export default function Home() {
           duration={20}
           color={["#ffc200", "#45107a", "#f0b429", "#7c1fd4", "#ffd700"]}
         >
-          <form onSubmit={handleSubmit} className="w-full p-4 sm:p-6 md:p-8 space-y-5">
+          <form onSubmit={handleSubmit} className="w-full p-3 sm:p-5 md:p-8 space-y-4 sm:space-y-5">
 
             {/* Roobet Name */}
             <div className="space-y-1.5">
@@ -217,7 +217,7 @@ export default function Home() {
               <label className="block text-sm font-semibold text-white/80">
                 Current VIP Lossback <span className="text-[#f0b429]">*</span>
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 {LOSSBACK_OPTIONS.map((opt) => (
                   <motion.button
                     key={opt}
