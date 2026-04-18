@@ -1,26 +1,251 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Sk-Modernist';
+  src: url('/fonts/Sk-Modernist-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-modernist {
+  font-family: 'Sk-Modernist', sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-deep: #0b0d1a;
+  --bg-card: #12152a;
+  --bg-surface: #181b30;
+  --gold: #f0b429;
+  --gold-dark: #c9920f;
+  --gold-light: #f5c842;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-gold: rgba(240, 180, 41, 0.25);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-deep);
+  color: #f0f0f0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0b0d1a; }
+::-webkit-scrollbar-thumb { background: #f0b429; border-radius: 3px; }
+
+/* Glass card — Roobet navy tint */
+.glass {
+  background: rgba(18, 21, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-gold {
+  background: rgba(240, 180, 41, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(240, 180, 41, 0.2);
+}
+
+.gold-glow {
+  box-shadow: 0 0 40px rgba(240, 180, 41, 0.1), 0 0 80px rgba(240, 180, 41, 0.04);
+}
+
+.gold-glow-strong {
+  box-shadow: 0 0 20px rgba(240, 180, 41, 0.45), 0 4px 30px rgba(240, 180, 41, 0.25);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #f0b429 0%, #f5c842 60%, #c9920f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Primary CTA — Roobet amber gold */
+.btn-primary {
+  background: linear-gradient(135deg, #f0b429 0%, #f5c842 100%);
+  color: #0b0d1a;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(240, 180, 41, 0.45);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #f0b429;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 13px 32px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1.5px solid rgba(240, 180, 41, 0.35);
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.btn-secondary:hover {
+  background: rgba(240, 180, 41, 0.08);
+  border-color: #f0b429;
+  transform: translateY(-2px);
+}
+
+/* Input — Roobet dark navy field */
+.input-field {
+  width: 100%;
+  background: rgba(11, 13, 26, 0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  padding: 13px 15px;
+  color: #f0f0f0;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #f0b429;
+  background: rgba(240, 180, 41, 0.04);
+  box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.1);
+}
+
+.input-field::placeholder { color: rgba(255, 255, 255, 0.25); }
+
+/* Drop zone */
+.drop-zone {
+  border: 2px dashed rgba(240, 180, 41, 0.28);
+  border-radius: 14px;
+  background: rgba(240, 180, 41, 0.03);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.drop-zone:hover, .drop-zone.active {
+  border-color: #f0b429;
+  background: rgba(240, 180, 41, 0.06);
+}
+
+/* Image preview */
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 6px;
+}
+
+@media (min-width: 480px) {
+  .image-preview-grid {
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 8px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Animations */
+:root {
+  --color-1: 45 100% 55%;
+  --color-2: 272 85% 58%;
+  --color-3: 38 100% 50%;
+  --color-4: 285 90% 55%;
+}
+
+@keyframes gradient-border {
+  0%, 100% { border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%; }
+  25%       { border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%; }
+  50%       { border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%; }
+  75%       { border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%; }
+}
+@keyframes gradient-1 {
+  0%, 100% { top: 0; right: 0; }
+  50%      { top: 50%; right: 25%; }
+  75%      { top: 25%; right: 50%; }
+}
+@keyframes gradient-2 {
+  0%, 100% { top: 0; left: 0; }
+  60%      { top: 75%; left: 25%; }
+  85%      { top: 50%; left: 50%; }
+}
+@keyframes gradient-3 {
+  0%, 100% { bottom: 0; left: 0; }
+  40%      { bottom: 50%; left: 25%; }
+  65%      { bottom: 25%; left: 50%; }
+}
+@keyframes gradient-4 {
+  0%, 100% { bottom: 0; right: 0; }
+  50%      { bottom: 25%; right: 40%; }
+  90%      { bottom: 50%; right: 25%; }
+}
+
+@keyframes shine-pulse {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* Shine border card wrapper */
+.shine-border-wrap {
+  position: relative;
+  border-radius: var(--border-radius, 20px);
+  background: rgba(18, 10, 45, 0.52);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
+}
+
+.shine-border-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius, 20px);
+  padding: var(--border-width, 2px);
+  background-image: var(--shine-colors);
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: shine-pulse var(--shine-duration, 20s) infinite ease-in-out;
+  pointer-events: none;
+  will-change: background-position;
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 15px rgba(240, 180, 41, 0.2); }
+  50%       { box-shadow: 0 0 35px rgba(240, 180, 41, 0.5); }
+}
+
+.animate-pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+
+@media (max-width: 768px) {
+  .btn-primary, .btn-secondary { padding: 12px 22px; font-size: 14px; }
 }
