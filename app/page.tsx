@@ -87,7 +87,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center" style={{ background: "#0b0d1a" }}>
+    <div className="min-h-screen flex flex-col items-center" style={{ background: "#0b0d1a", overflowX: "hidden" }}>
       <RoobetGradient />
       <div className="fixed inset-0 pointer-events-none" style={{ background: "rgba(8,5,28,0.55)", zIndex: 0 }} />
 
@@ -106,7 +106,7 @@ export default function Home() {
         </a>
       </div>
 
-      <div className="w-full px-3 sm:px-4 py-6 sm:py-8 md:py-12 flex flex-col items-center">
+      <div className="w-full px-4 py-6 sm:py-8 md:py-12 flex flex-col items-center" style={{ boxSizing: "border-box" }}>
 
       {/* Header */}
       <motion.div
@@ -151,7 +151,7 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="w-full max-w-xl relative"
+        className="w-full max-w-xl relative mx-auto"
         style={{ zIndex: 1 }}
       >
         <ShineBorder
