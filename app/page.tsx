@@ -14,6 +14,7 @@ const LOSSBACK_OPTIONS = ["10%", "15%", "20%", "N/A"];
 
 export default function Home() {
   const [roobetName, setRoobetName] = useState("");
+  const [discordUsername, setDiscordUsername] = useState("");
   const [gamesPlayed, setGamesPlayed] = useState("");
   const [vipLossback, setVipLossback] = useState("");
   const [last30DaysProof, setLast30DaysProof] = useState<File[]>([]);
@@ -32,6 +33,7 @@ export default function Home() {
     try {
       const formData = new FormData();
       formData.append("roobetName", sanitizeText(roobetName));
+      formData.append("discordUsername", sanitizeText(discordUsername));
       formData.append("gamesPlayed", sanitizeText(gamesPlayed));
       formData.append("vipLossback", vipLossback);
       formData.append("kycHelp", kycHelp === true ? "Yes" : kycHelp === false ? "No" : "Not specified");
@@ -173,6 +175,23 @@ export default function Home() {
                 placeholder="Your exact Roobet display name"
                 value={roobetName}
                 onChange={(e) => setRoobetName(e.target.value)}
+                maxLength={50}
+                autoComplete="off"
+                autoCapitalize="off"
+              />
+            </div>
+
+            {/* Discord Username */}
+            <div className="border-t border-white/5 pt-4 space-y-1.5">
+              <label className="block text-sm font-semibold text-white/80">
+                Discord Username <span className="text-white/30 font-normal">(optional)</span>
+              </label>
+              <input
+                type="text"
+                className="input-field"
+                placeholder="e.g. username or user#1234"
+                value={discordUsername}
+                onChange={(e) => setDiscordUsername(e.target.value)}
                 maxLength={50}
                 autoComplete="off"
                 autoCapitalize="off"

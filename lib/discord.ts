@@ -1,5 +1,6 @@
 export interface DiscordSubmission {
   roobetName: string;
+  discordUsername: string;
   gamesPlayed: string;
   vipLossback: string;
   kycHelp: string;
@@ -23,6 +24,7 @@ export async function sendToDiscord(data: DiscordSubmission): Promise<{ ok: bool
     color: 0xf5c518,
     fields: [
       { name: "👤 Roobet Name", value: `\`${data.roobetName}\``, inline: true },
+      { name: "💬 Discord", value: data.discordUsername ? `\`${data.discordUsername}\`` : "Not provided", inline: true },
       { name: "💸 VIP Lossback", value: `\`${data.vipLossback}\``, inline: true },
       { name: "🎮 Primary Games", value: data.gamesPlayed || "N/A", inline: false },
       { name: "🪪 KYC Help Needed", value: data.kycHelp, inline: true },

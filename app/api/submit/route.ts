@@ -21,6 +21,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Roobet name must be at least 2 characters." }, { status: 400 });
   }
 
+  const discordUsername = sanitizeText(String(formData.get("discordUsername") || ""));
+
   const gamesPlayed = sanitizeText(String(formData.get("gamesPlayed") || ""));
   if (!gamesPlayed) {
     return NextResponse.json({ error: "Please enter your primary games." }, { status: 400 });
@@ -58,7 +60,7 @@ export async function POST(req: NextRequest) {
 
   const kycHelp = ["Yes", "No"].includes(String(formData.get("kycHelp") || "")) ? String(formData.get("kycHelp")) : "Not specified";
 
-  const result = await sendToDiscord({ roobetName, gamesPlayed, vipLossback, kycHelp, last30DaysProof, totalWagerProof, ip });
+  const result = await sendToDiscord({ roobetName, discordUsername, gamesPlayed, vipLossback, kycHelp, last30DaysProof, totalWagerProof, ip });
   if (!result.ok) {
     return NextResponse.json({ error: "Failed to deliver application. Please try again." }, { status: 502 });
   }
