@@ -62,7 +62,9 @@ export async function POST(req: NextRequest) {
 
   const result = await sendToDiscord({ roobetName, discordUsername, gamesPlayed, vipLossback, kycHelp, last30DaysProof, totalWagerProof, ip });
   if (!result.ok) {
-    return NextResponse.json({ error: "Failed to deliver application. Please try again." }, { status: 502 });
+    // log discord send failure for debugging
+    console.error("Discord delivery failed:", result.error);
+    return NextResponse.json({ error: "Failed to deliver application. Please try again." + (result.error ? ` (${result.error})` : "") }, { status: 502 });
   }
 
   return NextResponse.json({ success: true });

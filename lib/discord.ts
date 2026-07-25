@@ -53,8 +53,20 @@ export async function sendToDiscord(data: DiscordSubmission): Promise<{ ok: bool
     ...data.totalWagerProof.map((f, i) => ({ file: f, name: `total_wager_${i + 1}_${f.name}` })),
   ];
 
+  // Discord enforces a filename pattern for attachments. Sanitize names to ASCII
+  // and allow only safe characters (letters, numbers, dot, dash, underscore, space).
+  const sanitizeFilename = (n: string) => {
+    // strip path segments if present
+    const base = n.split(/\\|\//).pop() || n;
+    // replace disallowed characters with underscore
+    const cleaned = base.replace(/[^A-Za-z0-9.\- _]/g, "_");
+    // collapse multiple underscores and trim length
+    return cleaned.replace(/_+/g, "_").slice(0, 100);
+  };
+
   allFiles.forEach(({ file, name }, i) => {
-    form.append(`files[${i}]`, file, name);
+    const safeName = sanitizeFilename(name);
+    form.append(`files[${i}]`, file, safeName);
   });
 
   try {
